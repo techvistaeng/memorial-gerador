@@ -4,14 +4,58 @@
   <meta charset="UTF-8">
   <title>MVP Memorial Descritivo</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
-    label, select, button { display: block; margin: 10px 0; width: 100%; }
-    #resultado { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #00C9A7;
+    }
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+    select, button {
+      display: block;
+      margin: 8px 0;
+      width: 100%;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    select {
+      background-color: #1e1e1e;
+      color: #f0f0f0;
+    }
+    button {
+      background-color: #00C9A7;
+      color: #121212;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #02b092;
+    }
+    #resultado {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Memorial Descritivo de Obra</h1>
+  <h1>Memorial Descritivo</h1>
 
   <form id="questionario">
     <label>Tipo de alvenaria:</label>
@@ -35,7 +79,38 @@
       <option>Laje impermeabilizada</option>
     </select>
 
-    <button type="submit">Gerar memorial</button>
+    <label>Revestimento de piso:</label>
+    <select name="piso">
+      <option>Cerâmico</option>
+      <option>Porcelanato</option>
+      <option>Vinílico</option>
+    </select>
+
+    <label>Quantidade de quartos:</label>
+    <select name="quartos">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+
+    <label>Número de banheiros:</label>
+    <select name="banheiros">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+
+    <label>Possui piscina?</label>
+    <select name="piscina">
+      <option>Sim</option>
+      <option>Não</option>
+    </select>
+
+    <button type="submit">Gerar Memorial</button>
   </form>
 
   <div id="resultado"></div>
@@ -50,8 +125,12 @@
       const alvenaria = form.alvenaria.value;
       const espessura = form.espessura.value;
       const cobertura = form.cobertura.value;
+      const piso = form.piso.value;
+      const quartos = form.quartos.value;
+      const banheiros = form.banheiros.value;
+      const piscina = form.piscina.value;
 
-      const prompt = `Crie um memorial descritivo de arquitetura com alvenaria de ${alvenaria}, paredes de ${espessura}, cobertura com ${cobertura}. Responda apenas com o texto do memorial, sem introduções.`
+      const prompt = `Crie um memorial descritivo de arquitetura com as seguintes características: alvenaria de ${alvenaria}, paredes de ${espessura}, cobertura com ${cobertura}, piso ${piso}, ${quartos} quartos, ${banheiros} banheiros, e ${piscina === "Sim" ? "com piscina" : "sem piscina"}. Responda apenas com o texto do memorial, sem introduções.`;
 
       resultado.innerHTML = "Gerando memorial... aguarde.";
 
