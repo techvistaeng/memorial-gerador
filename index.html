@@ -50,12 +50,6 @@
         button:hover {
             background-color: #0056b3;
         }
-        iframe {
-            width: 100%;
-            height: 600px;
-            border: none;
-            display: none; /* Inicialmente escondido */
-        }
     </style>
 </head>
 <body>
@@ -75,16 +69,11 @@
         </select>
 
         <button onclick="gerarMemorial()">Gerar Memorial</button>
-
-        <!-- Botão para mostrar o chat com o agente do Chatbase -->
-        <button id="startChat" style="display:none;" onclick="startChat()">Conversar com o Agente</button>
-
-        <!-- Iframe para o Chatbase -->
-        <iframe id="chatbaseIframe" src="https://www.chatbase.co/chatbot-iframe/4_rFhGbyCau8lk1L0JOJr" frameborder="0"></iframe>
     </div>
 
     <script>
-        async function gerarMemorial() {
+        function gerarMemorial() {
+            // Coleta dos dados do formulário
             const alvenaria = document.getElementById('alvenaria').value;
             const espessura = document.getElementById('espessura').value;
             const cobertura = document.getElementById('cobertura').value;
@@ -93,32 +82,22 @@
             const banheiros = document.getElementById('banheiros').value;
             const piscina = document.getElementById('piscina').value;
 
+            // Criação do prompt com as informações fornecidas pelo usuário
             const prompt = `Crie um memorial descritivo de arquitetura com as seguintes características: alvenaria de ${alvenaria}, paredes de ${espessura}, cobertura com ${cobertura}, piso ${piso}, ${quartos} quartos, ${banheiros} banheiros, piscina: ${piscina}.`;
 
-            // Aqui, você pode fazer uma requisição para o GPT ou Chatbase, mas no momento vamos apenas exibir o memorial
-            const memorial = `
-                Memorial Descritivo:
-                Alvenaria: ${alvenaria}
-                Espessura: ${espessura}
-                Cobertura: ${cobertura}
-                Piso: ${piso}
-                Quartos: ${quartos}
-                Banheiros: ${banheiros}
-                Piscina: ${piscina}
-            `;
+            // A URL do Chatbase que você usará para iniciar a conversa
+            const chatbaseUrl = 'https://www.chatbase.co/chatbot-iframe/4_rFhGbyCau8lk1L0JOJr';
 
-            // Exibir o memorial gerado no console ou onde preferir
-            alert(memorial); // Aqui você pode mostrar o memorial ou adicionar ao Chatbase como uma interação
+            // Criação de uma nova janela (ou aba) com o chat do Chatbase
+            const chatWindow = window.open('', '_blank');
+            chatWindow.document.write('<html><head><title>Memorial Descritivo</title></head><body>');
+            chatWindow.document.write('<h1>Gerando Memorial Descritivo...</h1>');
+            chatWindow.document.write('<iframe src="' + chatbaseUrl + '" width="100%" height="100%" frameborder="0"></iframe>');
+            chatWindow.document.write('</body></html>');
 
-            // Exibir o botão para iniciar a conversa com o Chatbase
-            document.getElementById('startChat').style.display = 'block';
-        }
-
-        function startChat() {
-            // Exibir o iframe do Chatbase
-            document.getElementById('chatbaseIframe').style.display = 'block';
-            // Você pode passar o memorial gerado como parte da conversa, utilizando a API do Chatbase
-            // Aqui você pode fazer com que o Chatbase responda com o memorial automaticamente
+            // Aqui você pode passar o prompt diretamente para o Chatbase via API, mas para simplificar,
+            // você pode configurar o Chatbase para entender automaticamente o conteúdo do prompt.
+            // O Chatbase processará a entrada na tela do chat.
         }
     </script>
 </body>
