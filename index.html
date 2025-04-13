@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <title>MVP Memorial Descritivo</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    label, select, button { display: block; margin: 10px 0; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    label, select, button { display: block; margin: 10px 0; width: 100%; }
     #resultado { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
   </style>
 </head>
@@ -51,22 +51,29 @@
       const espessura = form.espessura.value;
       const cobertura = form.cobertura.value;
 
-      const prompt = `Crie um memorial descritivo de arquitetura com alvenaria de ${alvenaria}, paredes de ${espessura}, cobertura com ${cobertura}.`;
+      const prompt = `Crie um memorial descritivo de arquitetura com alvenaria de ${alvenaria}, paredes de ${espessura}, cobertura com ${cobertura}. Responda apenas com o texto do memorial, sem introduções.`
+
+      resultado.innerHTML = "Gerando memorial... aguarde.";
 
       const response = await fetch('https://www.chatbase.co/api/v1/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer SUA_API_KEY_AQUI'
+          'Authorization': 'Bearer 2pdosgzqdbl08cxxbknq1wzst5p9k510'
         },
         body: JSON.stringify({
           "messages": [{"role": "user", "content": prompt}],
-          "chatbotId": "SEU_CHATBOT_ID_AQUI"
+          "chatbotId": "4_rFhGbyCau8lk1L0JOJr"
         })
       });
 
       const data = await response.json();
-      resultado.innerHTML = `<strong>Memorial Gerado:</strong><br><br>${data.text}`;
+
+      if (data.text) {
+        resultado.innerHTML = `<strong>Memorial Gerado:</strong><br><br>${data.text}`;
+      } else {
+        resultado.innerHTML = "Ocorreu um erro ao gerar o memorial.";
+      }
     });
   </script>
 
