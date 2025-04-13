@@ -88,17 +88,50 @@
             // A URL do Chatbase que você usará para iniciar a conversa
             const chatbaseUrl = 'https://www.chatbase.co/chatbot-iframe/4_rFhGbyCau8lk1L0JOJr';
 
-            // Criação de uma nova janela (ou aba) com o chat do Chatbase
+            // Abertura do chat em uma nova janela
             const chatWindow = window.open('', '_blank');
             chatWindow.document.write('<html><head><title>Memorial Descritivo</title></head><body>');
             chatWindow.document.write('<h1>Gerando Memorial Descritivo...</h1>');
             chatWindow.document.write('<iframe src="' + chatbaseUrl + '" width="100%" height="100%" frameborder="0"></iframe>');
             chatWindow.document.write('</body></html>');
 
-            // Aqui você pode passar o prompt diretamente para o Chatbase via API, mas para simplificar,
-            // você pode configurar o Chatbase para entender automaticamente o conteúdo do prompt.
-            // O Chatbase processará a entrada na tela do chat.
+            // Envio do prompt para o Chatbase
+            window.chatbase('send', prompt);
         }
+
+        // Inicialização do Chatbase com o código fornecido
+        (function() {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) {
+                        window.chatbase.q = [];
+                    }
+                    window.chatbase.q.push(arguments);
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") {
+                            return target.q;
+                        }
+                        return (...args) => target(prop, ...args);
+                    }
+                });
+            }
+
+            const onLoad = function() {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "4_rFhGbyCau8lk1L0JOJr";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script);
+            };
+
+            if (document.readyState === "complete") {
+                onLoad();
+            } else {
+                window.addEventListener("load", onLoad);
+            }
+        })();
     </script>
 </body>
 </html>
