@@ -8,36 +8,39 @@ export default function Home() {
     piscina: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    // Depois aqui conectaremos ao Chatbase
+    // Aqui vamos enviar para o bot depois
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-2xl bg-white p-10 rounded-3xl shadow-2xl">
-        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
-          Gerador de Memorial Descritivo
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-xl">
+        <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">
+          Gerador de Memorial
         </h1>
+        <p className="text-center text-gray-500 mb-10">
+          Preencha as informações para gerar seu memorial descritivo.
+        </p>
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {/* Campo 1: Espessura da parede */}
+          {/* Espessura da parede */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
-              Espessura da Parede
+            <label className="block mb-2 font-semibold text-gray-700">
+              Espessura da parede
             </label>
             <select
               name="parede"
               value={formData.parede}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">Selecione</option>
               <option value="10cm">10 cm</option>
@@ -46,17 +49,17 @@ export default function Home() {
             </select>
           </div>
 
-          {/* Campo 2: Tipo de cobertura */}
+          {/* Tipo de cobertura */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
-              Tipo de Cobertura
+            <label className="block mb-2 font-semibold text-gray-700">
+              Tipo de cobertura
             </label>
             <select
               name="cobertura"
               value={formData.cobertura}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">Selecione</option>
               <option value="telhado embutido">Telhado Embutido</option>
@@ -64,17 +67,17 @@ export default function Home() {
             </select>
           </div>
 
-          {/* Campo 3: Tipo de revestimento de piso */}
+          {/* Tipo de revestimento de piso */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
-              Tipo de Revestimento do Piso
+            <label className="block mb-2 font-semibold text-gray-700">
+              Tipo de revestimento do piso
             </label>
             <select
               name="piso"
               value={formData.piso}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">Selecione</option>
               <option value="porcelanato">Porcelanato</option>
@@ -82,9 +85,9 @@ export default function Home() {
             </select>
           </div>
 
-          {/* Campo 4: Piscina */}
+          {/* Piscina */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-700">
+            <label className="block mb-2 font-semibold text-gray-700">
               Piscina
             </label>
             <select
@@ -92,7 +95,7 @@ export default function Home() {
               value={formData.piscina}
               onChange={handleChange}
               required
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-black"
             >
               <option value="">Selecione</option>
               <option value="sim">Sim</option>
@@ -100,10 +103,10 @@ export default function Home() {
             </select>
           </div>
 
-          {/* Botão de envio */}
+          {/* Botão */}
           <button
             type="submit"
-            className="w-full bg-black text-white p-4 rounded-xl font-bold hover:bg-gray-800 transition"
+            className="w-full bg-black text-white p-4 rounded-lg font-semibold hover:bg-gray-800 transition"
           >
             Gerar Memorial
           </button>
