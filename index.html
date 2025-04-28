@@ -66,6 +66,17 @@
     button:hover {
       background-color: #1558b0;
     }
+    #resultado {
+      margin-top: 40px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: none;
+      white-space: pre-wrap;
+      color: #333;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -73,8 +84,7 @@
   <div class="container">
     <h1>Gerador de Memorial Descritivo</h1>
 
-    <form action="#" method="POST">
-
+    <form id="formulario">
       <div>
         <label for="parede">Espessura da parede</label>
         <select id="parede" name="parede" required>
@@ -113,9 +123,56 @@
       </div>
 
       <button type="submit">Gerar Memorial</button>
-
     </form>
+
+    <div id="resultado"></div>
+
   </div>
+
+  <script>
+    const formulario = document.getElementById('formulario');
+    const resultadoDiv = document.getElementById('resultado');
+
+    formulario.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const parede = document.getElementById('parede').value;
+      const cobertura = document.getElementById('cobertura').value;
+      const piso = document.getElementById('piso').value;
+      const piscina = document.getElementById('piscina').value;
+
+      const prompt = `Gere um memorial descritivo para uma obra com as seguintes características:
+- Espessura da parede: ${parede}
+- Tipo de cobertura: ${cobertura}
+- Tipo de piso: ${piso}
+- Possui piscina: ${piscina}`;
+
+      try {
+        const response = await fetch('https://www.chatbase.co/api/v1/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer 2pdosgzqdbl08cxxbknq1wzst5p9k510'
+          },
+          body: JSON.stringify({
+            messages: [{ role: 'user', content: prompt }],
+            chatbotId: '4_rFhGbyCau8lk1L0JOJr'
+          })
+        });
+
+        const data = await response.json();
+        const resposta = data?.text || "Erro ao gerar memorial.";
+
+        formulario.style.display = 'none';
+        resultadoDiv.style.display = 'block';
+        resultadoDiv.textContent = resposta;
+
+      } catch (error) {
+        alert('Erro ao enviar os dados. Tente novamente.');
+        console.error(error);
+      }
+    });
+  </script>
 
 </body>
 </html>
