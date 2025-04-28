@@ -16,85 +16,100 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
-    // Aqui depois vamos enviar os dados para o Chatbase
+    // Depois aqui conectaremos ao Chatbase
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md space-y-6"
-      >
-        <h1 className="text-2xl font-bold text-center">Gerador de Memorial</h1>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+      <div className="w-full max-w-2xl bg-white p-10 rounded-3xl shadow-2xl">
+        <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">
+          Gerador de Memorial Descritivo
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
 
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium">Espessura da parede</label>
-          <select
-            name="parede"
-            value={formData.parede}
-            onChange={handleChange}
-            required
-            className="border p-2 rounded-lg"
+          {/* Campo 1: Espessura da parede */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Espessura da Parede
+            </label>
+            <select
+              name="parede"
+              value={formData.parede}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">Selecione</option>
+              <option value="10cm">10 cm</option>
+              <option value="15cm">15 cm</option>
+              <option value="20cm">20 cm</option>
+            </select>
+          </div>
+
+          {/* Campo 2: Tipo de cobertura */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Tipo de Cobertura
+            </label>
+            <select
+              name="cobertura"
+              value={formData.cobertura}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">Selecione</option>
+              <option value="telhado embutido">Telhado Embutido</option>
+              <option value="telhas cerâmica">Telhas Cerâmica</option>
+            </select>
+          </div>
+
+          {/* Campo 3: Tipo de revestimento de piso */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Tipo de Revestimento do Piso
+            </label>
+            <select
+              name="piso"
+              value={formData.piso}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">Selecione</option>
+              <option value="porcelanato">Porcelanato</option>
+              <option value="cerâmico comum">Cerâmico Comum</option>
+            </select>
+          </div>
+
+          {/* Campo 4: Piscina */}
+          <div>
+            <label className="block text-sm font-semibold mb-2 text-gray-700">
+              Piscina
+            </label>
+            <select
+              name="piscina"
+              value={formData.piscina}
+              onChange={handleChange}
+              required
+              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-black"
+            >
+              <option value="">Selecione</option>
+              <option value="sim">Sim</option>
+              <option value="não">Não</option>
+            </select>
+          </div>
+
+          {/* Botão de envio */}
+          <button
+            type="submit"
+            className="w-full bg-black text-white p-4 rounded-xl font-bold hover:bg-gray-800 transition"
           >
-            <option value="">Selecione</option>
-            <option value="10cm">10 cm</option>
-            <option value="15cm">15 cm</option>
-            <option value="20cm">20 cm</option>
-          </select>
-        </div>
+            Gerar Memorial
+          </button>
 
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium">Tipo de cobertura</label>
-          <select
-            name="cobertura"
-            value={formData.cobertura}
-            onChange={handleChange}
-            required
-            className="border p-2 rounded-lg"
-          >
-            <option value="">Selecione</option>
-            <option value="telhado embutido">Telhado Embutido</option>
-            <option value="telhas cerâmica">Telhas Cerâmica</option>
-          </select>
-        </div>
-
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium">Tipo de revestimento do piso</label>
-          <select
-            name="piso"
-            value={formData.piso}
-            onChange={handleChange}
-            required
-            className="border p-2 rounded-lg"
-          >
-            <option value="">Selecione</option>
-            <option value="porcelanato">Porcelanato</option>
-            <option value="cerâmico comum">Cerâmico Comum</option>
-          </select>
-        </div>
-
-        <div className="flex flex-col">
-          <label className="mb-2 font-medium">Piscina</label>
-          <select
-            name="piscina"
-            value={formData.piscina}
-            onChange={handleChange}
-            required
-            className="border p-2 rounded-lg"
-          >
-            <option value="">Selecione</option>
-            <option value="sim">Sim</option>
-            <option value="não">Não</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="bg-black text-white p-3 rounded-xl w-full hover:bg-gray-800 transition"
-        >
-          Gerar Memorial
-        </button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
